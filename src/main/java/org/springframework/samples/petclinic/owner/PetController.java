@@ -56,7 +56,7 @@ class PetController {
 	}
 
 	@ModelAttribute("owner")
-	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
+	public Owner findOwner(@PathVariable int ownerId) {
 
 		Owner owner = this.owners.findById(ownerId);
 		if (owner == null) {
@@ -66,8 +66,8 @@ class PetController {
 	}
 
 	@ModelAttribute("pet")
-	public Pet findPet(@PathVariable("ownerId") int ownerId,
-			@PathVariable(name = "petId", required = false) Integer petId) {
+	public Pet findPet(@PathVariable int ownerId,
+			@PathVariable(required = false) Integer petId) {
 
 		if (petId == null) {
 			return new Pet();
@@ -122,7 +122,7 @@ class PetController {
 	}
 
 	@GetMapping("/pets/{petId}/edit")
-	public String initUpdateForm(Owner owner, @PathVariable("petId") int petId, ModelMap model,
+	public String initUpdateForm(Owner owner, @PathVariable int petId, ModelMap model,
 			RedirectAttributes redirectAttributes) {
 		Pet pet = owner.getPet(petId);
 		model.put("pet", pet);
